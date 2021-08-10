@@ -37,7 +37,10 @@ public class ZipReader {
         CSVParser csvParser = new CSVParser(br, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());
         for (CSVRecord csvRecord : csvParser) {
           String internalIdString = csvRecord.get("internalId");
-//          System.out.println("Processing internalId : " + internalIdString);
+
+          if(csvRecord.getRecordNumber() % 1000000L == 0) {
+            System.out.println("processed records : " + csvRecord.getRecordNumber());
+          }
 
           if (isNumeric(internalIdString)) {
             long internalId = Long.parseLong(internalIdString);
